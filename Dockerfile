@@ -1,5 +1,3 @@
-FROM rabbitmq:3-management
-
-RUN rabbitmq-plugins enable --offline rabbitmq_stomp
-
-EXPOSE 15671 15672 61613
+FROM openjdk:17-jdk-slim
+ADD /build/libs/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]

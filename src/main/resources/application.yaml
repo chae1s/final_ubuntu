@@ -18,11 +18,12 @@ spring:
       max-file-size: 20MB
 
   datasource:
-    url: jdbc:sqlite:db.sqlite
-    driver-class-name: org.sqlite.JDBC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://final-where-db.cbkadlp3xczq.ap-northeast-2.rds.amazonaws.com:3306/finalproject?serverTimezone=Asia/Seoul
+    username: admin
+    password: ${MYSQL_SECRET}
 
   jpa:
-    database-platform: org.hibernate.community.dialect.SQLiteDialect
     show-sql: true
     hibernate:
       ddl-auto: update
@@ -32,20 +33,19 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-#  rabbitmq:
-#    host: localhost # rabbitMQ host (docker로 띄웠음)
-#    port: 5672 # default port
-#    username: guest # default username
-#    password: guest # default password
+  #  rabbitmq:
+  #    host: localhost # rabbitMQ host (docker로 띄웠음)
+  #    port: 5672 # default port
+  #    username: guest # default username
+  #    password: guest # default password
   data:
     redis:
       port: 6379
       host: 127.0.0.1
 
-
 jwt:
   secret: ${JWT_SECRET}
-  accessExpirationTime: ${JWT_EXPIRATION}
+  accessExpirationTime: 3600
 
-NAVER_MAP_CLIENT_ID: pvpyjs42ed
-NAVER_MAP_CLIENT_SECRET: axYdkxoOlcuU1lIoPJSVuNY3393unETitNf1wPxK
+NAVER_MAP_CLIENT_ID: ${NAVER_MAP_CLIENT_ID}
+NAVER_MAP_CLIENT_SECRET: ${NAVER_MAP_CLIENT_SECRET}
