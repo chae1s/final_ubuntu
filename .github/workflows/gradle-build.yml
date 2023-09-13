@@ -24,6 +24,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Set up environment
+      env:
+        MYSQL_URL: ${{ secret.MYSQL_URL }}
+        MYSQL_SECRET: ${{ secret.MYSQL_SECRET }}
+        NAVER_MAP_CLIENT_ID: ${{ secret.NAVER_MAP_CLIENT_ID }}
+        NAVER_MAP_CLIENT_SECRET: ${{ NAVER_MAP_CLIENT_SECRET }}
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
@@ -80,7 +86,7 @@ jobs:
 
           sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} \
           --name ${{ secrets.PROJECT_NAME }} \
-          -e SPRING_DATASOURCE_URL=${{ secrets.DB_URL }} \
-          -e SPRING_DATASOURCE_USERNAME=${{ secrets.DB_USERNAME }} \
-          -e SPRING_DATASOURCE_PASSWORD=${{ secrets.DB_PASSWORD }} \
+          -e SPRING_DATASOURCE_URL=${{ secrets.MYSQL_URL }} \
+          -e SPRING_DATASOURCE_USERNAME=${{ secrets.MYSQL_USERNAME }} \
+          -e SPRING_DATASOURCE_PASSWORD=${{ secrets.MYSQL_SECRET }} \
           -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
