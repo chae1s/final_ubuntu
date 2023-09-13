@@ -50,7 +50,7 @@ jobs:
 
     - name: Build and Deploy with Docker Compose
       run: |
-        cd final_ubuntu  # Docker Compose 파일이 있는 디렉토리로 이동
+        cd /  # Docker Compose 파일이 있는 디렉토리로 이동
         docker-compose up -d --build  # 애플리케이션 빌드 및 배포
         docker-compose ps  # 실행 중인 컨테이너 확인
       env:
