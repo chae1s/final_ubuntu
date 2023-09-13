@@ -35,6 +35,19 @@ jobs:
         npm install
         npm run build
 
+    - name: Run Redis Container
+      run: |
+        docker run -d --name my-redis-container redis:latest
+        # 여기에 Redis 컨테이너 실행 후 필요한 설정 등을 추가할 수 있음
+      continue-on-error: true  # 에러가 발생해도 계속 진행하도록 설정
+
+    # RabbitMQ 컨테이너 실행
+    - name: Run RabbitMQ Container
+      run: |
+        docker run -d --name my-rabbitmq-container rabbitmq:3-management
+        # 여기에 RabbitMQ 컨테이너 실행 후 필요한 설정 등을 추가할 수 있음
+      continue-on-error: true 
+
     
     - name: Set up JDK 17
       uses: actions/setup-java@v3
@@ -80,8 +93,6 @@ jobs:
           sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
           sudo docker logs -f ${{ secrets.PROJECT_NAME }}
-          sudo docker-compose up -d
-          
 
           sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} \
           --name ${{ secrets.PROJECT_NAME }} \
@@ -92,3 +103,5 @@ jobs:
           -e NAVER_MAP_CLIENT_SECRET=${{ secrets.NAVER_MAP_CLIENT_SECRET }} \
           -d ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
 
+          sudo docker run -d --name my-redis-container redis:latest
+          sudo docker run -d --name my-rabbitmq-container rabbitmq:3-management
