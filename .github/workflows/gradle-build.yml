@@ -47,14 +47,6 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: clean build -x test
-
-    - name: Build and Deploy with Docker Compose
-      run: |
-        cd /  # Docker Compose 파일이 있는 디렉토리로 이동
-        docker-compose up -d --build  # 애플리케이션 빌드 및 배포
-        docker-compose ps  # 실행 중인 컨테이너 확인
-      env:
-        DOCKER_COMPOSE_VERSION: 1.27.4
         
     # DockerHub 로그인
     - name: DockerHun Login
@@ -66,7 +58,8 @@ jobs:
     # Docker 이미지 빌드
     - name: Docker Image Build
       run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }} .
-      
+
+    
     # DockerHub Push
     - name: DockerHub Push
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
@@ -84,6 +77,8 @@ jobs:
           sudo docker rm -f ${{ secrets.PROJECT_NAME }}
           sudo docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
+          docker-compose up -d
+          sudo docker logs -f ${{ secrets.PROJECT_NAME }}
 
           sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} \
           --name ${{ secrets.PROJECT_NAME }} \
