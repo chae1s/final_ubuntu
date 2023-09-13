@@ -2,7 +2,7 @@
     <main>
         <div class="content">
             <div class="make_schedule_content">
-                <div class="content_title">일정 만들기</div>
+                <div class="content_title">일정 만들기후후</div>
                 <form class="schedule_input_section">
                     <div class="schedule_name_input">
                         <label>

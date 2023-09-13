@@ -19,7 +19,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://final-where-db.cbkadlp3xczq.ap-northeast-2.rds.amazonaws.com:3306/finaldb?serverTimezone=Asia/Seoul
+    url: ${MYSQL_URL}
     username: admin
     password: ${MYSQL_SECRET}
 
