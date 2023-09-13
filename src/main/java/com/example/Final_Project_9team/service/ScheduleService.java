@@ -151,6 +151,7 @@ public class ScheduleService {
         List<ItemPathDto> itemPaths = createRoutePosition(scheduleItemRequest.getTourDestination());
         LocalDate tourDate = scheduleItemRequest.getTourDate();
 
+        log.info(String.valueOf(redisTemplate.isExposeConnection()));
         String id = String.format("no%d%s", scheduleId, tourDate);
         redisTemplate.opsForValue().set(id, SchedulePathDto.builder()
                 .scheduleItems(scheduleItemRequest.getTourDestination())
