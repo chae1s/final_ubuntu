@@ -79,7 +79,7 @@ jobs:
           sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.PROJECT_NAME }}
           sudo docker logs -f ${{ secrets.PROJECT_NAME }}
           
-          cd /home/ubuntu/final_ubuntu
+          cd /root/final_ubuntu
           docker-compose up -d
 
           sudo docker run -p ${{ secrets.PORT }}:${{ secrets.PORT }} \
